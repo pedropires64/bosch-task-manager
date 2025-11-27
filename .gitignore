@@ -9,3 +9,5 @@ dist/
 
 # Outros
 .env
+
+backend/app.db
