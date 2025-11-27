@@ -1,0 +1,56 @@
+<div class="tasks-container">
+
+    <h2>As minhas tarefas</h2>
+  
+    <button (click)="startCreate()">Nova tarefa</button>
+    <button (click)="onLogout()">Logout</button>
+    
+  
+    <form (ngSubmit)="submitForm()">
+      <input 
+        type="text" 
+        placeholder="Título"
+        [(ngModel)]="formTask.title"
+        name="title"
+        required
+      />
+  
+      <input 
+        type="text" 
+        placeholder="Descrição"
+        [(ngModel)]="formTask.description"
+        name="description"
+      />
+  
+      <label>
+        <input 
+          type="checkbox"
+          [(ngModel)]="formTask.done"
+          name="done"
+        />
+        Concluída
+      </label>
+  
+      <button type="submit">
+        {{ editingTaskId === null ? 'Criar' : 'Guardar' }}
+      </button>
+    </form>
+  
+    <hr>
+  
+    <ul>
+      <li *ngFor="let task of tasks">
+        <span [style.text-decoration]="task.done ? 'line-through' : 'none'">
+          {{ task.title }} - {{ task.description }}
+        </span>
+  
+        <button (click)="toggleDone(task)">
+          {{ task.done ? 'Marcar pendente' : 'Marcar concluída' }}
+        </button>
+  
+        <button (click)="startEdit(task)">Editar</button>
+        <button (click)="deleteTask(task.id)">Apagar</button>
+      </li>
+    </ul>
+  
+  </div>
