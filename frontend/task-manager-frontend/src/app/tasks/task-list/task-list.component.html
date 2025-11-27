@@ -1,56 +1,84 @@
 <div class="tasks-container">
-
-    <h2>As minhas tarefas</h2>
+    <div class="tasks-card">
   
-    <button (click)="startCreate()">Nova tarefa</button>
-    <button (click)="onLogout()">Logout</button>
-    
+      <div class="tasks-header">
+        <div>
+          <h2 class="tasks-title">As minhas tarefas</h2>
+        </div>
   
-    <form (ngSubmit)="submitForm()">
-      <input 
-        type="text" 
-        placeholder="Título"
-        [(ngModel)]="formTask.title"
-        name="title"
-        required
-      />
+        <div class="tasks-header-right">
+          <button class="btn btn-secondary" (click)="onLogout()">
+            Logout
+          </button>
+        </div>
+      </div>
   
-      <input 
-        type="text" 
-        placeholder="Descrição"
-        [(ngModel)]="formTask.description"
-        name="description"
-      />
-  
-      <label>
-        <input 
-          type="checkbox"
-          [(ngModel)]="formTask.done"
-          name="done"
+      <form class="tasks-form" (ngSubmit)="submitForm()">
+        <input
+          type="text"
+          placeholder="Título da tarefa"
+          [(ngModel)]="formTask.title"
+          name="title"
+          required
         />
-        Concluída
-      </label>
   
-      <button type="submit">
-        {{ editingTaskId === null ? 'Criar' : 'Guardar' }}
-      </button>
-    </form>
+        <input
+          type="text"
+          placeholder="Descrição (opcional)"
+          [(ngModel)]="formTask.description"
+          name="description"
+        />
   
-    <hr>
+        <div class="tasks-form-done">
+          <input
+            type="checkbox"
+            [(ngModel)]="formTask.done"
+            name="done"
+          />
+          <span>Concluída</span>
+        </div>
   
-    <ul>
-      <li *ngFor="let task of tasks">
-        <span [style.text-decoration]="task.done ? 'line-through' : 'none'">
-          {{ task.title }} - {{ task.description }}
-        </span>
-  
-        <button (click)="toggleDone(task)">
-          {{ task.done ? 'Marcar pendente' : 'Marcar concluída' }}
+        <button type="submit" class="btn btn-primary">
+          {{ editingTaskId === null ? 'Criar' : 'Guardar' }}
         </button>
+      </form>
   
-        <button (click)="startEdit(task)">Editar</button>
-        <button (click)="deleteTask(task.id)">Apagar</button>
-      </li>
-    </ul>
+      <p *ngIf="errorMessage" class="text-error tasks-error">
+        {{ errorMessage }}
+      </p>
   
+      <ul class="tasks-list">
+        <li *ngFor="let task of tasks" class="tasks-item">
+          <label class="tasks-item-left">
+            <input
+              type="checkbox"
+              [checked]="task.done"
+              (change)="toggleDone(task)"
+            />
+            <div class="tasks-item-text">
+              <span class="tasks-item-title" [class.done]="task.done">
+                {{ task.title }}
+              </span>
+              <span class="tasks-item-description" *ngIf="task.description">
+                {{ task.description }}
+              </span>
+            </div>
+          </label>
+      
+          <div class="tasks-item-actions">
+            <button type="button" class="btn-ghost" (click)="startEdit(task)">
+              Editar
+            </button>
+            <button
+              type="button"
+              class="btn-ghost-danger"
+              (click)="deleteTask(task.id)"
+            >
+              Apagar
+            </button>
+          </div>
+        </li>
+      </ul>
+  
+    </div>
   </div>

@@ -1,0 +1,40 @@
+.login-container {
+    max-width: 360px;
+    margin: auto;
+    width: 100%;
+  }
+  
+  .login-card {
+    composes: card from global;
+  }
+  
+
+  .login-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+    padding: 24px;
+  }
+  
+  .login-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  
+  .login-subtitle {
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 20px;
+  }
+  
+  .login-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  
+  .login-actions button {
+    flex: 1;
+  }

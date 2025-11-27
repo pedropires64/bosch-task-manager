@@ -30,8 +30,13 @@ export class TaskListComponent implements OnInit {
 
   loadTasks(): void {
     this.taskService.getTasks().subscribe({
-      next: (data) => this.tasks = data,
-      error: () => this.errorMessage = 'Erro ao carregar tarefas.'
+      next: (data) => {
+        this.tasks = data;
+        this.sortTasks();
+      },
+      error: () => {
+        this.errorMessage = 'Erro ao carregar tarefas.';
+      }
     });
   }
 
@@ -92,6 +97,15 @@ export class TaskListComponent implements OnInit {
     this.taskService.updateTask(task.id, updated).subscribe({
       next: () => this.loadTasks(),
       error: () => this.errorMessage = 'Erro ao atualizar estado.'
+    });
+  }
+
+  private sortTasks(): void {
+    this.tasks = [...this.tasks].sort((a, b) => {
+      if (a.done === b.done) {
+        return (a.id ?? 0) - (b.id ?? 0);
+      }
+      return a.done ? 1 : -1;  
     });
   }
 
